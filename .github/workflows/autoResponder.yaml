@@ -4,10 +4,6 @@ on:
   issues:
     types: [opened]
 
-permissions: # Add permissions for issues and contents
-  issues: write
-  contents: read
-
 jobs:
   responder:
     runs-on: ubuntu-latest
@@ -25,42 +21,42 @@ jobs:
 
             // Exemplo de lógica para diferentes templates
             if (title.includes("bug") || body.includes("### Descreva o problema")) {
-              await github.rest.issues.createComment({
+              await github.issues.createComment({
                 owner,
                 repo,
                 issue_number,
                 body: "🐞 Obrigada por reportar um bug! Vamos analisar assim que possível."
               });
-              await github.rest.reactions.createForIssue({
+              await github.reactions.createForIssue({
                 owner,
                 repo,
                 issue_number,
-                content: "beetle"
+                content: "heart"  // Emojis válidos agora
               });
             } else if (title.includes("sugestão") || body.includes("### Qual funcionalidade você sugere?")) {
-              await github.rest.issues.createComment({
+              await github.issues.createComment({
                 owner,
                 repo,
                 issue_number,
                 body: "✨ Obrigada pela sugestão! Iremos avaliar essa ideia 💜"
               });
-              await github.rest.reactions.createForIssue({
+              await github.reactions.createForIssue({
                 owner,
                 repo,
                 issue_number,
-                content: "sparkles"
+                content: "rocket"  // Emojis válidos agora
               });
             } else {
-              await github.rest.issues.createComment({
+              await github.issues.createComment({
                 owner,
                 repo,
                 issue_number,
                 body: "⚠️ Oi! Parece que sua issue não segue um dos templates. Por favor, edite ou feche e crie novamente usando os botões de template."
               });
-              await github.rest.reactions.createForIssue({
+              await github.reactions.createForIssue({
                 owner,
                 repo,
                 issue_number,
-                content: "confused"
+                content: "confused"  // Emojis válidos agora
               });
             }
