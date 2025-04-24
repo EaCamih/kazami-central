@@ -16,7 +16,6 @@ jobs:
             const token = process.env.GITHUB_TOKEN;
             const octokit = github.getOctokit(token);
             
-            const { context } = github;
             const issue_number = context.issue.number;
             const repo = context.repo.repo;
             const owner = context.repo.owner;
