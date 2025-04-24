@@ -4,6 +4,10 @@ on:
   issues:
     types: [opened]
 
+permissions: # Add permissions for issues and contents
+  issues: write
+  contents: read
+
 jobs:
   responder:
     runs-on: ubuntu-latest
@@ -21,7 +25,7 @@ jobs:
 
             // Exemplo de lógica para diferentes templates
             if (title.includes("bug") || body.includes("### Descreva o problema")) {
-              await github.rest.issues.createComment({ // Use github.rest for API calls
+              await github.rest.issues.createComment({
                 owner,
                 repo,
                 issue_number,
