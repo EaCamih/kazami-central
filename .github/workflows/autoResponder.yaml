@@ -13,6 +13,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const { github, context } = require('@actions/github'); // Ensure proper initialization
             const title = context.payload.issue.title.toLowerCase();
             const body = context.payload.issue.body;
             const issue_number = context.issue.number;
@@ -21,39 +22,39 @@ jobs:
 
             // Exemplo de lógica para diferentes templates
             if (title.includes("bug") || body.includes("### Descreva o problema")) {
-              await github.issues.createComment({
+              await github.rest.issues.createComment({ // Use github.rest for API calls
                 owner,
                 repo,
                 issue_number,
                 body: "🐞 Obrigada por reportar um bug! Vamos analisar assim que possível."
               });
-              await github.reactions.createForIssue({
+              await github.rest.reactions.createForIssue({
                 owner,
                 repo,
                 issue_number,
                 content: "beetle"
               });
             } else if (title.includes("sugestão") || body.includes("### Qual funcionalidade você sugere?")) {
-              await github.issues.createComment({
+              await github.rest.issues.createComment({
                 owner,
                 repo,
                 issue_number,
                 body: "✨ Obrigada pela sugestão! Iremos avaliar essa ideia 💜"
               });
-              await github.reactions.createForIssue({
+              await github.rest.reactions.createForIssue({
                 owner,
                 repo,
                 issue_number,
                 content: "sparkles"
               });
             } else {
-              await github.issues.createComment({
+              await github.rest.issues.createComment({
                 owner,
                 repo,
                 issue_number,
                 body: "⚠️ Oi! Parece que sua issue não segue um dos templates. Por favor, edite ou feche e crie novamente usando os botões de template."
               });
-              await github.reactions.createForIssue({
+              await github.rest.reactions.createForIssue({
                 owner,
                 repo,
                 issue_number,
