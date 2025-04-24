@@ -1,0 +1,22 @@
+name: Sugestão
+description: Sugira uma nova funcionalidade
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: "## 💡 Ideia nova chegando!"
+  - type: textarea
+    id: feature
+    attributes:
+      label: "Qual funcionalidade você sugere?"
+      placeholder: "Explique o que você gostaria de ver no bot."
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Urgência"
+      options:
+        - "Tranquilo, sem pressa"
+        - "Seria muito útil!"
+        - "URGENTE!!"
