@@ -13,7 +13,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { github, context } = require('@actions/github'); // Ensure proper initialization
             const title = context.payload.issue.title.toLowerCase();
             const body = context.payload.issue.body;
             const issue_number = context.issue.number;
